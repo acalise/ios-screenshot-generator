@@ -222,6 +222,16 @@ export default function ScreenshotCreator() {
     });
   }, [activeSlide, updateSlide, updateTheme]);
 
+  const resetSlide = useCallback(() => {
+    updateSlide(activeSlide, {
+      headline: "Your headline here",
+      screenshot: null,
+      screenshotScale: 100,
+      screenshotOffsetX: 0,
+      screenshotOffsetY: 0,
+    });
+  }, [activeSlide, updateSlide]);
+
   const resetProject = useCallback(() => {
     const nextProject = createInitialProject();
     setDeviceIndex(nextProject.deviceIndex);
@@ -321,15 +331,26 @@ export default function ScreenshotCreator() {
 
   return (
     <div className="h-screen flex flex-col overflow-hidden">
-      <header className="border-b border-gray-800 px-6 py-4">
-        <div className="max-w-[1600px] mx-auto">
-          <h1 className="text-xl font-bold">Screenshot Studio</h1>
-          <p className="text-sm text-gray-400">
-            Open source app store screenshot generator with browser-only exports
-          </p>
+      {/* Header — compact on mobile, full on desktop */}
+      <header className="border-b border-gray-800 px-4 py-2 lg:px-6 lg:py-4">
+        <div className="max-w-[1600px] mx-auto flex items-center justify-between">
+          <div>
+            <h1 className="text-base font-bold lg:text-xl">Screenshot Studio</h1>
+            <p className="hidden lg:block text-sm text-gray-400">
+              Open source app store screenshot generator with browser-only exports
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setResetProjectModalOpen(true)}
+            className="rounded-md border border-red-950 bg-red-950/20 px-3 py-1.5 text-xs font-medium text-red-200 transition-colors hover:bg-red-950/40"
+          >
+            Start Fresh
+          </button>
         </div>
       </header>
 
+      {/* Main area — sidebar on desktop, full-width preview on mobile */}
       <div className="flex-1 flex max-w-[1600px] mx-auto w-full min-h-0 overflow-hidden">
         <StudioSidebar
           device={device}
@@ -351,11 +372,12 @@ export default function ScreenshotCreator() {
           onThemeChange={updateTheme}
           onSlideChange={(updates) => updateSlide(activeSlide, updates)}
           onResetFraming={resetFraming}
+          onResetSlide={resetSlide}
           onExportCurrent={() => exportSlide(activeSlide)}
           onExportAll={exportAll}
         />
 
-        <main className="flex-1 flex items-center justify-center p-6 bg-gray-900/50 min-h-0 min-w-0">
+        <main className="flex-1 flex items-center justify-center p-3 lg:p-6 bg-gray-900/50 min-h-0 min-w-0 pb-20 lg:pb-6">
           {currentSlide ? (
             <LivePreview
               key={`${device.width}-${device.height}`}
@@ -374,6 +396,7 @@ export default function ScreenshotCreator() {
         </main>
       </div>
 
+      {/* Hidden export canvas */}
       <div
         aria-hidden="true"
         className="pointer-events-none fixed left-0 top-0 opacity-0"
@@ -393,25 +416,14 @@ export default function ScreenshotCreator() {
         </div>
       </div>
 
-      <footer className="border-t border-gray-800 px-6 py-3">
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-4 text-xs text-gray-500">
-          <span>
-            Output: {device.width}x{device.height}px PNG - rendered locally in
-            your browser
-          </span>
-          <div className="flex items-center gap-4">
-            <span>100% free and open source</span>
-            <button
-              type="button"
-              onClick={() => setResetProjectModalOpen(true)}
-              className="rounded-md border border-red-950 bg-red-950/20 px-3 py-1.5 text-xs font-medium text-red-200 transition-colors hover:bg-red-950/40"
-            >
-              Start Fresh
-            </button>
-          </div>
+      {/* Footer — desktop only */}
+      <footer className="hidden lg:block border-t border-gray-800 px-6 py-3">
+        <div className="max-w-[1600px] mx-auto flex items-center justify-center text-xs text-gray-500">
+          <span>100% free and open source</span>
         </div>
       </footer>
 
+      {/* Empty slides modal */}
       {emptySlidesModalOpen ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6">
           <div className="w-full max-w-md rounded-2xl border border-gray-800 bg-gray-950 p-6 shadow-2xl">
@@ -461,6 +473,7 @@ export default function ScreenshotCreator() {
         </div>
       ) : null}
 
+      {/* Reset project modal */}
       {resetProjectModalOpen ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6">
           <div className="w-full max-w-md rounded-2xl border border-gray-800 bg-gray-950 p-6 shadow-2xl">

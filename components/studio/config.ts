@@ -29,8 +29,6 @@ export const BACKGROUND_PRESETS: BackgroundPreset[] = [
   { name: "Green", start: "#11998e", end: "#38ef7d" },
   { name: "Sunset", start: "#ee0979", end: "#ff6a00" },
   { name: "Ocean", start: "#2193b0", end: "#6dd5ed" },
-  { name: "Light", start: "#f5f7fa", end: "#c3cfe2" },
-  { name: "Dark", start: "#000000", end: "#1a1a1a" },
   { name: "White", start: "#ffffff", end: "#f0f0f0" },
 ];
 
