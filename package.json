@@ -1,7 +1,13 @@
 {
-  "name": "screenshot-creator",
+  "name": "ios-screenshot-generator",
   "version": "0.1.0",
   "private": true,
+  "description": "Generate polished iOS App Store screenshots in your browser.",
+  "homepage": "https://acalise.github.io/ios-screenshot-generator/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acalise/ios-screenshot-generator.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

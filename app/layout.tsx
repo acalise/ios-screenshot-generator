@@ -8,9 +8,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Screenshot Studio — Free App Store Screenshot Generator",
+  title: "iOS Screenshot Generator",
   description:
-    "Create beautiful App Store and Google Play screenshots for free. Upload your screenshots, customize colors and text, and download ready-to-submit images.",
+    "Generate polished iOS App Store screenshots in your browser.",
 };
 
 export default function RootLayout({

@@ -1,6 +1,20 @@
-# Screenshot Studio
+# iOS Screenshot Generator
 
-Browser-based screenshot generator for App Store and Play Store marketing assets. Upload screenshots, style the frame and typography, then export production-size PNGs without sending assets to a server.
+Generate polished iOS App Store screenshots in your browser.
+
+Live app: `https://acalise.github.io/ios-screenshot-generator/`
+
+This project is a lightweight browser-based editor for marketing screenshots. Upload iPhone screenshots, adjust the frame and composition, and export production-size PNGs without sending assets to a server.
+
+## Features
+
+- Browser-only screenshot generation
+- iPhone frame with drag-to-position screenshot editing
+- Headline and sub-label controls
+- Background, typography, and framing controls
+- Multi-slide workflow with local persistence
+- Export current slide or the whole set
+- GitHub Pages deployment
 
 ## Local development
 
@@ -11,35 +25,39 @@ npm run dev
 
 Open `http://localhost:3000`.
 
-## Current scope
+## Tech
 
-- Multiple slides in one project
-- App-store-sized device presets
-- Gradient and color controls
-- Dynamic Google Font loading for export and preview
-- Local PNG export with `html-to-image`
+- Next.js 16
+- React 19
+- Tailwind CSS 4
+- `html-to-image`
 
 ## Project structure
 
 ```text
 app/
-  page.tsx
+  page.tsx                  # Main editor state and export flow
 components/studio/
-  config.ts
-  controls.tsx
-  live-preview.tsx
-  phone-frame.tsx
-  slide-canvas.tsx
-  types.ts
+  config.ts                 # Defaults and presets
+  controls.tsx              # Sidebar controls
+  live-preview.tsx          # Scaled preview surface
+  phone-frame.tsx           # iPhone frame and drag handling
+  slide-canvas.tsx          # Shared render tree for preview/export
+  types.ts                  # Shared editor types
 ```
 
 ## Notes
 
 - This repo targets `next@16`, so check the bundled docs in `node_modules/next/dist/docs/` before changing framework-level patterns.
-- Exports are client-side. Large images and many slides will still be limited by browser memory.
+- Exports are client-side. Large images and many slides are still limited by browser memory.
+- The hosted version is built as a static export for GitHub Pages under `/ios-screenshot-generator/`.
 
 ## Build
 
 ```bash
 npm run build
 ```
+
+## License
+
+MIT
