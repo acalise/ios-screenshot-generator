@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
+const isGitHubActions = process.env.GITHUB_ACTIONS === "true";
+const repoName = "ios-screenshot-generator";
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: "export",
+  trailingSlash: true,
+  basePath: isGitHubActions ? `/${repoName}` : "",
+  assetPrefix: isGitHubActions ? `/${repoName}/` : undefined,
 };
 
 export default nextConfig;
