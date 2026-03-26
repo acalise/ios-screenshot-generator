@@ -22,11 +22,43 @@ function createSlide(): SlideData {
   };
 }
 
+function isIOS() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+
 function downloadImage(dataUrl: string, fileName: string) {
-  const anchor = document.createElement("a");
-  anchor.href = dataUrl;
-  anchor.download = fileName;
-  anchor.click();
+  if (!isIOS()) {
+    const anchor = document.createElement("a");
+    anchor.href = dataUrl;
+    anchor.download = fileName;
+    anchor.click();
+    return;
+  }
+
+  // On iOS, open image in new tab so user can long-press → Save to Photos
+  const w = window.open("", "_blank");
+  if (w) {
+    w.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>${fileName}</title>
+        <style>
+          body { margin: 0; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, sans-serif; }
+          img { max-width: 90vw; max-height: 80vh; border-radius: 8px; }
+          p { color: #999; font-size: 14px; margin-top: 16px; text-align: center; }
+        </style>
+      </head>
+      <body>
+        <img src="${dataUrl}" alt="${fileName}">
+        <p>Long-press the image to save to Photos</p>
+      </body>
+      </html>
+    `);
+    w.document.close();
+  }
 }
 
 async function waitForNextPaint() {
@@ -269,6 +301,11 @@ export default function ScreenshotCreator() {
         cacheBust: true,
         skipFonts: true,
       };
+
+      // First pass warms Safari's image cache (fixes blank phone screen)
+      await toPng(target, options).catch(() => {});
+      await waitForNextPaint();
+
       const dataUrl = await toPng(target, options);
 
       downloadImage(
