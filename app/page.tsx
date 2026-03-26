@@ -210,17 +210,20 @@ export default function ScreenshotCreator() {
     setTheme((previous) => ({ ...previous, ...updates }));
   }, []);
 
-  const resetFraming = useCallback(() => {
+  const resetZoom = useCallback(() => {
     updateSlide(activeSlide, {
       screenshotScale: 100,
       screenshotOffsetX: 0,
       screenshotOffsetY: 0,
     });
+  }, [activeSlide, updateSlide]);
+
+  const resetPhone = useCallback(() => {
     updateTheme({
       phoneSize: DEFAULT_THEME.phoneSize,
       phoneOffsetY: DEFAULT_THEME.phoneOffsetY,
     });
-  }, [activeSlide, updateSlide, updateTheme]);
+  }, [updateTheme]);
 
   const resetSlide = useCallback(() => {
     updateSlide(activeSlide, {
@@ -230,6 +233,7 @@ export default function ScreenshotCreator() {
       screenshotOffsetX: 0,
       screenshotOffsetY: 0,
     });
+    setTheme(DEFAULT_THEME);
   }, [activeSlide, updateSlide]);
 
   const resetProject = useCallback(() => {
@@ -371,7 +375,8 @@ export default function ScreenshotCreator() {
           onHeadlineChange={(headline) => updateSlide(activeSlide, { headline })}
           onThemeChange={updateTheme}
           onSlideChange={(updates) => updateSlide(activeSlide, updates)}
-          onResetFraming={resetFraming}
+          onResetZoom={resetZoom}
+          onResetPhone={resetPhone}
           onResetSlide={resetSlide}
           onExportCurrent={() => exportSlide(activeSlide)}
           onExportAll={exportAll}

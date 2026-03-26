@@ -32,7 +32,8 @@ interface StudioSidebarProps {
   onHeadlineChange: (value: string) => void;
   onSlideChange: (updates: Partial<SlideData>) => void;
   onThemeChange: (updates: Partial<SlideTheme>) => void;
-  onResetFraming: () => void;
+  onResetZoom: () => void;
+  onResetPhone: () => void;
   onResetSlide: () => void;
   onExportCurrent: () => void;
   onExportAll: () => void;
@@ -57,7 +58,8 @@ export function StudioSidebar({
   onHeadlineChange,
   onSlideChange,
   onThemeChange,
-  onResetFraming,
+  onResetZoom,
+  onResetPhone,
   onResetSlide,
   onExportCurrent,
   onExportAll,
@@ -157,7 +159,11 @@ export function StudioSidebar({
       {activeTab === "content" ? (
         <>
           <Section title="Screenshot">
-            <label className="block w-full cursor-pointer">
+            <button
+              type="button"
+              onClick={() => uploadInputRef.current?.click()}
+              className="block w-full cursor-pointer text-left"
+            >
               <div className="border-2 border-dashed border-gray-700 rounded-lg p-4 text-center hover:border-gray-500 transition-colors">
                 <p className="text-sm text-gray-400">
                   {currentSlide?.screenshot
@@ -171,19 +177,7 @@ export function StudioSidebar({
                   Best with modern iPhone portrait screenshots
                 </p>
               </div>
-              <input
-                id="screenshot-upload"
-                ref={uploadInputRef}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={(event) => {
-                  const file = event.target.files?.[0];
-                  if (file) onUploadSlide(file);
-                  event.target.value = "";
-                }}
-              />
-            </label>
+            </button>
             <div className="space-y-3 mt-3">
               <SliderControl
                 label="Zoom"
@@ -195,6 +189,13 @@ export function StudioSidebar({
               <p className="text-xs text-gray-500">
                 Drag the screenshot in the preview to reposition it.
               </p>
+              <button
+                type="button"
+                onClick={onResetZoom}
+                className="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-xs font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-white"
+              >
+                Reset Zoom
+              </button>
             </div>
           </Section>
 
@@ -357,10 +358,10 @@ export function StudioSidebar({
               />
               <button
                 type="button"
-                onClick={onResetFraming}
+                onClick={onResetPhone}
                 className="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-xs font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-white"
               >
-                Reset Position
+                Reset Phone
               </button>
             </div>
           </Section>
@@ -416,6 +417,19 @@ export function StudioSidebar({
 
   return (
     <>
+      {/* Always-mounted file input so the ref works from any tab */}
+      <input
+        ref={uploadInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(event) => {
+          const file = event.target.files?.[0];
+          if (file) onUploadSlide(file);
+          event.target.value = "";
+        }}
+      />
+
       {/* Desktop sidebar */}
       <aside className="hidden lg:flex lg:flex-col lg:w-80 border-r border-gray-800 flex-shrink-0 min-h-0">
         <div className="p-4 border-b border-gray-800">
