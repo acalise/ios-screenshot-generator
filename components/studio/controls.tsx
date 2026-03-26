@@ -136,7 +136,7 @@ export function StudioSidebar({
             <button
               onClick={onExportAll}
               disabled={exporting}
-              className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 disabled:bg-gray-900 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
+              className="hidden lg:block w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 disabled:bg-gray-900 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
             >
               {exporting ? "Exporting…" : "Export All Slides"}
             </button>

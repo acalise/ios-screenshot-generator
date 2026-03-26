@@ -1,20 +1,21 @@
-# iOS Screenshot Generator
+# iOS App Store Screenshot Generator
 
-Generate polished iOS App Store screenshots in your browser.
+Generate polished App Store screenshots in your browser. Upload a screenshot, customize the headline, background, and typography, then export pixel-perfect PNGs — no server, no sign-up.
 
-Live app: `https://acalise.github.io/ios-screenshot-generator/`
-
-This project is a lightweight browser-based editor for marketing screenshots. Upload iPhone screenshots, adjust the frame and composition, and export production-size PNGs without sending assets to a server.
+**Live app:** https://acalise.github.io/ios-screenshot-generator/
 
 ## Features
 
-- Browser-only screenshot generation
+- Browser-only screenshot generation — nothing leaves your device
 - iPhone frame with drag-to-position screenshot editing
-- Headline and sub-label controls
-- Background, typography, and framing controls
-- Multi-slide workflow with local persistence
-- Export current slide or the whole set
-- GitHub Pages deployment
+- Header and sub-header text controls
+- Background gradients, presets, and color pickers
+- Typography controls (15+ Google Fonts, size, color)
+- Phone size and placement sliders
+- Multi-slide workflow (up to 10) with local persistence
+- Export individual slides or the full set
+- Mobile-friendly UI with bottom sheet controls
+- iOS-compatible export (long-press to save to Photos)
 
 ## Local development
 
@@ -39,18 +40,12 @@ app/
   page.tsx                  # Main editor state and export flow
 components/studio/
   config.ts                 # Defaults and presets
-  controls.tsx              # Sidebar controls
+  controls.tsx              # Tabbed controls with mobile bottom sheet
   live-preview.tsx          # Scaled preview surface
   phone-frame.tsx           # iPhone frame and drag handling
   slide-canvas.tsx          # Shared render tree for preview/export
   types.ts                  # Shared editor types
 ```
-
-## Notes
-
-- This repo targets `next@16`, so check the bundled docs in `node_modules/next/dist/docs/` before changing framework-level patterns.
-- Exports are client-side. Large images and many slides are still limited by browser memory.
-- The hosted version is built as a static export for GitHub Pages under `/ios-screenshot-generator/`.
 
 ## Build
 
@@ -58,6 +53,4 @@ components/studio/
 npm run build
 ```
 
-## License
-
-MIT
+Static export is deployed to GitHub Pages via the included Actions workflow.
