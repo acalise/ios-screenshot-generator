@@ -3,11 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "description": "Generate polished iOS App Store screenshots in your browser.",
+  "author": "acalise",
+  "license": "MIT",
   "homepage": "https://acalise.github.io/ios-screenshot-generator/",
   "repository": {
     "type": "git",
     "url": "https://github.com/acalise/ios-screenshot-generator.git"
   },
+  "bugs": {
+    "url": "https://github.com/acalise/ios-screenshot-generator/issues"
+  },
+  "keywords": [
+    "ios",
+    "screenshot",
+    "app-store",
+    "generator",
+    "nextjs",
+    "react",
+    "tailwindcss",
+    "apple"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
