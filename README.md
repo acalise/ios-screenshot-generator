@@ -2,7 +2,7 @@
 
 Generate polished App Store screenshots in your browser. Upload a screenshot, customize the headline, background, and typography, then export pixel-perfect PNGs — no server, no sign-up.
 
-**Live app:** https://acalise.github.io/ios-screenshot-generator/
+**Live app:** https://acalise.com/ios-screenshot-generator/
 
 ## Features
 

@@ -5,7 +5,7 @@
   "description": "Generate polished iOS App Store screenshots in your browser.",
   "author": "acalise",
   "license": "MIT",
-  "homepage": "https://acalise.github.io/ios-screenshot-generator/",
+  "homepage": "https://acalise.com/ios-screenshot-generator/",
   "repository": {
     "type": "git",
     "url": "https://github.com/acalise/ios-screenshot-generator.git"
